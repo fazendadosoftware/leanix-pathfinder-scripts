@@ -43,7 +43,7 @@ describe('LeanIX subscription tasks', () => {
 
     // We want to filter factsheets having at least a subscription with the following role id
     // TODO: change this id according your case
-    const FILTERING_ROLE_ID = '63a70217-c29c-4374-9a09-819971d4baa4'
+    const FILTERING_ROLE_ID = '20a7d0c4-ab62-4a6a-974c-f48d7818f3b9'
 
     const factSheetsSubscribedWithRole = await executeGraphQL({ query, variables, accessToken })
       .then(data => {
@@ -72,7 +72,7 @@ describe('LeanIX subscription tasks', () => {
     const query = requireGql(resolve(__dirname, '../../graphql/MUTATION_UPDATESUBSCRIPTION.gql'))
     // we load the json file from our last test, containing the factsheets
     // with the targeted subscription role
-    const factSheets = require('../../factSheetsWithSubscriptionRole.json')
+    const factSheets = require(join(OUTPUT_DIR, 'factSheetsWithSubscriptionRole.json'))
     for (const factSheet of factSheets) {
       for (const subscription of factSheet.subscriptions) {
         // task:
