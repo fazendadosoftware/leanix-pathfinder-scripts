@@ -1,0 +1,10 @@
+{
+  allSubscriptionRoles {
+    edges {
+      node {
+        id
+        name
+      }
+    }
+  }
+}

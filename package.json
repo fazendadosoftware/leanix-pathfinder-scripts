@@ -6,11 +6,7 @@
     "postinstall": "npx playwright install",
     "clean": "rimraf .output/*",
     "test:unit": "jest",
-    "test:signin": "playwright test --repeat-each=10 --timeout 30000 --reporter=line __tests__/e2e/leanix.spec.ts",
-    "test:snapshot": "jest -t 'allows to take a latency snapshot'",
-    "test:produce_statistics": "jest -t 'ingests test output files and generates statistics'",
-    "test:e2e": "playwright test --repeat-each=10 --timeout 30000 --reporter=line",
-    "test": "npm run clean ; npm run test:snapshot ; npm run test:signin ; npm run test:produce_statistics"
+    "test:e2e": "playwright test --timeout 30000 --reporter=line"
   },
   "keywords": [],
   "author": "Paulo Santos <paulo.santos@leanix.net>",
@@ -32,14 +28,10 @@
     "ts-jest": "^28.0.5"
   },
   "dependencies": {
-    "adm-zip": "^0.5.9",
-    "bottleneck": "^2.19.5",
+    "graphql-tag": "^2.12.6",
     "https-proxy-agent": "^5.0.1",
     "jwt-decode": "^3.1.2",
-    "mathjs": "^10.6.4",
-    "nanoid": "^4.0.0",
     "node-fetch": "^2",
-    "ping": "^0.4.2",
     "rimraf": "^3.0.2"
   }
 }

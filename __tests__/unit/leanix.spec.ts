@@ -1,16 +1,17 @@
+import {
+  createLeanIXCredentials,
+  getAccessToken,
+  getLaunchUrl,
+  getAccessTokenClaims,
+  executeGraphQL
+} from '../../lib/leanix'
 
-import { join } from 'path'
-import { existsSync, mkdirSync } from 'fs'
-import { getAccessToken, getLaunchUrl, getAccessTokenClaims, LeanIXCredentials } from '../../lib/leanix'
-
-const { LEANIX_HOST: host = '', LEANIX_APITOKEN: apitoken = '' } = process.env
-const credentials: LeanIXCredentials = { host, apitoken }
-const outputDir = join(process.cwd(), '.output')
+// Do not forget to add an ".env" file to this project root folder containing the following variables
+// LEANIX_HOST=<your workspace instance - e.g. app.leanix.net>
+// LEANIX_APITOKEN=<your api token>
+const credentials = createLeanIXCredentials(process.env.LEANIX_HOST, process.env.LEANIX_APITOKEN)
 
 describe('LeanIX helpers', () => {
-  beforeAll(() => {
-    if (!existsSync(outputDir)) mkdirSync(outputDir)
-  })
   test('allow to get an access token from credentials', async () => {
     expect(credentials.host).not.toBeFalsy()
     expect(credentials.apitoken).not.toBeFalsy()
@@ -34,5 +35,12 @@ describe('LeanIX helpers', () => {
     expect(url.origin).toEqual(claims.instanceUrl)
     expect(url.pathname).toEqual(`/${claims.principal.permission.workspaceName}`)
     expect(url.hash).toContain('#access_token=')
+  })
+
+  test('allow to execute a graphql query', async () => {
+    const query = '{ allFactSheets { edges { node { id type name } } } }'
+    const accessToken = await getAccessToken(credentials)
+    const data = await executeGraphQL({ query, variables: {}, accessToken })
+    expect(Array.isArray(data?.allFactSheets?.edges)).toBe(true)
   })
 })

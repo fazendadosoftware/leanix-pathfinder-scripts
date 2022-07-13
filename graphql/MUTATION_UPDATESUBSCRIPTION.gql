@@ -1,0 +1,13 @@
+mutation ($subscriptionId: ID!, $userId: ID!, $subscriptionType: FactSheetSubscriptionType!, $roleId: ID) {
+  updateSubscription(id: $subscriptionId, user: {id: $userId}, type: $subscriptionType, roles: [{id: $roleId}]) {
+    id
+    user {
+      id
+    }
+    type
+    roles {
+      id
+      name
+    }
+  }
+}

@@ -1,0 +1,26 @@
+query ($filter: FilterInput) {
+  allFactSheets(filter: $filter) {
+    edges {
+      node {
+        id
+        type
+        name
+        subscriptions {
+          edges {
+            node {
+              id
+              type
+              roles {
+                id
+                name
+              }
+              user {
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
