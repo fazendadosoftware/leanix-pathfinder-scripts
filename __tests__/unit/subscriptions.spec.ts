@@ -10,7 +10,7 @@ import { writeFileSync, mkdirSync, existsSync } from 'fs'
 
 const OUTPUT_DIR = join(process.cwd(), '.output')
 
-describe('LeanIX helpers', () => {
+describe('LeanIX subscription tasks', () => {
   let accessToken: AccessToken | null = null
 
   beforeAll(async () => {
