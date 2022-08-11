@@ -43,4 +43,35 @@ describe('LeanIX helpers', () => {
     const data = await executeGraphQL({ query, variables: {}, accessToken })
     expect(Array.isArray(data?.allFactSheets?.edges)).toBe(true)
   })
+
+  test('allow to execute a graphql query', async () => {
+    const query = 'mutation($patches:[Patch]!, $cloningOptions:CloningOptionsType!){cloneFactSheet(id:"28fe4aa2-6e46-41a1-a131-72afb3acf256", patches:$patches, cloningOptions:$cloningOptions, validateOnly:false){factSheet{id name type}removedFields newRelations{path relation{id}}}}'
+    const variables = {
+      cloningOptions: {
+        cloneCreationDate: false,
+        cloneExternalIds: true,
+        cloneRelations: true
+      },
+      patches: [
+        {
+          op: 'replace',
+          path: '/name',
+          value: 'My AC Management'
+        },
+        {
+          op: 'replace',
+          path: '/externalId',
+          value: '{"externalId":""}'
+        },
+        {
+          op: 'replace',
+          path: '/release',
+          value: ''
+        }
+      ]
+    }
+    const accessToken = await getAccessToken(credentials)
+    const data = await executeGraphQL({ query, variables, accessToken })
+    expect(Array.isArray(data?.allFactSheets?.edges)).toBe(true)
+  })
 })

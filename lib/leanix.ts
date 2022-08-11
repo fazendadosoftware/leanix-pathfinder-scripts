@@ -63,7 +63,7 @@ export const executeGraphQL = async (params: ExecuteGraphQLParams) => {
   const response = await fetch(url, { method: 'POST', headers, body })
   if (response.status === 200) {
     const payload = await response.json() as GraphQLResponse
-    if (payload.data === null && payload?.errors?.length > 0) {
+    if (payload?.errors?.length > 0) {
       throw new LeanIXGraphQLError(payload.errors)
     }
     return payload.data
